@@ -20,10 +20,14 @@ export class Timer extends React.Component
             baseTimeA: moment.duration(25, 'minutes'),
             timerStateA: timerStates.NOT_SET,
             timerA: null,
-            currentTimeB: moment.duration(25, 'minutes'),
-            baseTimeB: moment.duration(25, 'minutes'),
+            currentTimeB: moment.duration(15, 'minutes'),
+            baseTimeB: moment.duration(15, 'minutes'),
             timerStateB: timerStates.NOT_SET,
             timerB: null,
+            currentTimeC: moment.duration(10, 'minutes'),
+            baseTimeC: moment.duration(10, 'minutes'),
+            timerStateC: timerStates.NOT_SET,
+            timerC: null,
         };
 
         this.setBaseTimeA = this.setBaseTimeA.bind(this);
@@ -31,6 +35,18 @@ export class Timer extends React.Component
         this.reduceTimerA = this.reduceTimerA.bind(this);
         this.stopTimerA = this.stopTimerA.bind(this);
         this.resetTimerA = this.resetTimerA.bind(this);
+
+        this.setBaseTimeB = this.setBaseTimeB.bind(this);
+        this.startTimerB = this.startTimerB.bind(this);
+        this.reduceTimerB = this.reduceTimerB.bind(this);
+        this.stopTimerB = this.stopTimerB.bind(this);
+        this.resetTimerB = this.resetTimerB.bind(this);
+
+        this.setBaseTimeC = this.setBaseTimeC.bind(this);
+        this.startTimerC = this.startTimerC.bind(this);
+        this.reduceTimerC = this.reduceTimerC.bind(this);
+        this.stopTimerC = this.stopTimerC.bind(this);
+        this.resetTimerC = this.resetTimerC.bind(this);
 
     }
 
@@ -40,14 +56,12 @@ export class Timer extends React.Component
             currentTimeA: newBaseTime
         });
     }
-
     startTimerA(){
         this.setState({
             timerStateA: timerStates.RUNNING,
             timerA: setInterval(this.reduceTimerA, 1000)
         });
     }
-
     stopTimerA(){
         if (this.state.timerA) {
             clearInterval(this.state.timerA);
@@ -59,7 +73,6 @@ export class Timer extends React.Component
             currentTimeA: moment.duration(this.state.baseTimeA)
         })
     }
-
     reduceTimerA() {
         if (this.state.currentTimeA.get('hours') === 0
             && this.state.currentTimeA.get('minutes') === 0
@@ -76,7 +89,6 @@ export class Timer extends React.Component
             currentTimeA: newTime
         })
     }
-
     resetTimerA(){
         if (this.state.timerA) {
             clearInterval(this.state.timerA);
@@ -85,6 +97,106 @@ export class Timer extends React.Component
         this.setState({
             timerStateA: timerStates.COMPLETE,
             timerA: null,
+        })
+    }
+    //B stuff
+    setBaseTimeB(newBaseTime) {
+        this.setState({
+            baseTimeB: newBaseTime,
+            currentTimeB: newBaseTime
+        });
+    }
+    startTimerB(){
+        this.setState({
+            timerStateB: timerStates.RUNNING,
+            timerB: setInterval(this.reduceTimerB, 1000)
+        });
+    }
+    stopTimerB(){
+        if (this.state.timerB) {
+            clearInterval(this.state.timerB);
+        }
+
+        this.setState({
+            timerStateB: timerStates.NOT_SET,
+            timerB: null,
+            currentTimeB: moment.duration(this.state.baseTimeB)
+        })
+    }
+    reduceTimerB() {
+        if (this.state.currentTimeB.get('hours') === 0
+            && this.state.currentTimeB.get('minutes') === 0
+            && this.state.currentTimeB.get('seconds') === 0
+        ) {
+            this.resetTimerB();
+            return;
+        }
+        
+        const newTime = moment.duration(this.state.currentTimeB);
+        newTime.subtract(1, 'second');
+
+        this.setState({
+            currentTimeB: newTime
+        })
+    }
+    resetTimerB(){
+        if (this.state.timerB) {
+            clearInterval(this.state.timerB);
+        }
+
+        this.setState({
+            timerStateB: timerStates.COMPLETE,
+            timerB: null,
+        })
+    }
+    //C stuff
+    setBaseTimeC(newBaseTime) {
+        this.setState({
+            baseTimeC: newBaseTime,
+            currentTimeC: newBaseTime
+        });
+    }
+    startTimerC(){
+        this.setState({
+            timerStateC: timerStates.RUNNING,
+            timerC: setInterval(this.reduceTimerC, 1000)
+        });
+    }
+    stopTimerC(){
+        if (this.state.timerC) {
+            clearInterval(this.state.timerC);
+        }
+
+        this.setState({
+            timerStateC: timerStates.NOT_SET,
+            timerC: null,
+            currentTimeC: moment.duration(this.state.baseTimeC)
+        })
+    }
+    reduceTimerC() {
+        if (this.state.currentTimeC.get('hours') === 0
+            && this.state.currentTimeC.get('minutes') === 0
+            && this.state.currentTimeC.get('seconds') === 0
+        ) {
+            this.resetTimerC();
+            return;
+        }
+        
+        const newTime = moment.duration(this.state.currentTimeC);
+        newTime.subtract(1, 'second');
+
+        this.setState({
+            currentTimeC: newTime
+        })
+    }
+    resetTimerC(){
+        if (this.state.timerC) {
+            clearInterval(this.state.timerC);
+        }
+
+        this.setState({
+            timerStateC: timerStates.COMPLETE,
+            timerC: null,
         })
     }
 
@@ -106,6 +218,10 @@ export class Timer extends React.Component
                     timerState={this.state.timerState} 
                     stopTimer={this.stopTimer} resetTimer={this.resetTimer}/> */}
                     <TimerHeader />
+                    <TimerDisplay currentTime={this.state.currentTimeB}/>
+                    <TimerButton startTimer={this.startTimerB} 
+                    timerState={this.state.timerStateB} 
+                    stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/>
                 </div>
                 <div className="box-3">
                     {/* <TimerHeader />
@@ -113,6 +229,11 @@ export class Timer extends React.Component
                     <TimerButton startTimer={this.startTimer} 
                     timerState={this.state.timerState} 
                     stopTimer={this.stopTimer} resetTimer={this.resetTimer}/> */}
+                    <TimerHeader />
+                    <TimerDisplay currentTime={this.state.currentTimeC}/>
+                    <TimerButton startTimer={this.startTimerC} 
+                    timerState={this.state.timerStateC} 
+                    stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/>
                 </div>
             </div>
 
