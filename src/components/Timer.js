@@ -16,6 +16,8 @@ export class Timer extends React.Component
         super();
 
         this.state = {
+            secondBox: false,
+            thirdBox: false,
             currentTimeA: moment.duration(25, 'minutes'),
             baseTimeA: moment.duration(25, 'minutes'),
             timerStateA: timerStates.NOT_SET,
@@ -47,6 +49,9 @@ export class Timer extends React.Component
         this.reduceTimerC = this.reduceTimerC.bind(this);
         this.stopTimerC = this.stopTimerC.bind(this);
         this.resetTimerC = this.resetTimerC.bind(this);
+
+        this.handleSecondDisplay = this.handleSecondDisplay.bind(this);
+        this.handleThirdDisplay = this.handleThirdDisplay.bind(this);
 
     }
 
@@ -200,6 +205,18 @@ export class Timer extends React.Component
         })
     }
 
+    handleSecondDisplay(){
+        this.setState({
+            secondBox: true,
+        });
+    }
+
+    handleThirdDisplay(){
+        this.setState({
+            thirdBox: true,
+        });
+    }
+
     render () {
     return (
         
@@ -217,11 +234,12 @@ export class Timer extends React.Component
                     <TimerButton startTimer={this.startTimer} 
                     timerState={this.state.timerState} 
                     stopTimer={this.stopTimer} resetTimer={this.resetTimer}/> */}
-                    <TimerHeader />
+                    {this.state.secondBox ? (<div><TimerHeader />
                     <TimerDisplay currentTime={this.state.currentTimeB}/>
                     <TimerButton startTimer={this.startTimerB} 
                     timerState={this.state.timerStateB} 
-                    stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/>
+                    stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/> </div>) :
+                    (  <button className="plus-button plus-button--large" onClick={this.handleSecondDisplay}></button>) }
                 </div>
                 <div className="box-3">
                     {/* <TimerHeader />
@@ -229,11 +247,14 @@ export class Timer extends React.Component
                     <TimerButton startTimer={this.startTimer} 
                     timerState={this.state.timerState} 
                     stopTimer={this.stopTimer} resetTimer={this.resetTimer}/> */}
-                    <TimerHeader />
-                    <TimerDisplay currentTime={this.state.currentTimeC}/>
+                    
+                    {this.state.thirdBox ? (<div><TimerHeader /><TimerDisplay currentTime={this.state.currentTimeC}/>
                     <TimerButton startTimer={this.startTimerC} 
                     timerState={this.state.timerStateC} 
-                    stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/>
+                    stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/></div>)
+                     : (  <button className="plus-button plus-button--large" onClick={this.handleThirdDisplay}></button>)}
+                    
+                    
                 </div>
             </div>
 
