@@ -4,6 +4,8 @@ import React from 'react';
 //import { Grid, Row, FormGroup } from 'react-bootstrap';
 import TimerHeader from './TimerHeader';
 import TimerDisplay from './TimerDisplay';
+import TimerConfig from './TimerConfig';
+
 // import TimerConfig from '../../TimerConfig/TimerConfig';
 import TimerButton from './TimerButton';
 import moment from 'moment';
@@ -227,6 +229,14 @@ export class Timer extends React.Component
                     <TimerButton startTimer={this.startTimerA} 
                     timerState={this.state.timerStateA} 
                     stopTimer={this.stopTimerA} resetTimer={this.resetTimerA}/>
+                     {
+                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    &&
+                    (<TimerConfig 
+                        baseTime={this.state.baseTimeA}
+                        setBaseTime={this.setBaseTimeA}
+                    />)
+                }
                 </div>
                 <div className="box-2">
                     {/* <TimerHeader />
@@ -238,7 +248,16 @@ export class Timer extends React.Component
                     <TimerDisplay currentTime={this.state.currentTimeB}/>
                     <TimerButton startTimer={this.startTimerB} 
                     timerState={this.state.timerStateB} 
-                    stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/> </div>) :
+                    stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/> 
+                      {
+                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    &&
+                    (<TimerConfig 
+                        baseTime={this.state.baseTimeB}
+                        setBaseTime={this.setBaseTimeB}
+                    />)
+                       }
+                       </div>) :
                     (  <button className="plus-button plus-button--large" onClick={this.handleSecondDisplay}></button>) }
                 </div>
                 <div className="box-3">
@@ -251,7 +270,16 @@ export class Timer extends React.Component
                     {this.state.thirdBox ? (<div><TimerHeader /><TimerDisplay currentTime={this.state.currentTimeC}/>
                     <TimerButton startTimer={this.startTimerC} 
                     timerState={this.state.timerStateC} 
-                    stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/></div>)
+                    stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/>
+                      {
+                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    &&
+                    (<TimerConfig 
+                        baseTime={this.state.baseTimeC}
+                        setBaseTime={this.setBaseTimeC}
+                    />)
+                    }
+                    </div>)
                      : (  <button className="plus-button plus-button--large" onClick={this.handleThirdDisplay}></button>)}
                     
                     
