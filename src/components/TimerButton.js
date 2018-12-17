@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Panel } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import * as timerStates from '../timerStates';
+import './TimerButton.css';
 
 class TimerButton extends React.Component {
   
@@ -17,7 +18,7 @@ class TimerButton extends React.Component {
       return (
         <Row>
         {/* <Button bsStyle="success" onClick={this.props.startTimer}>Start</Button> */}
-        <button id={this.props.id} onClick={this.props.startTimer}>Start Timer</button>
+        <button id="Start" onClick={this.props.startTimer}>Start Timer</button>
         </Row>
       )
 
@@ -35,7 +36,7 @@ class TimerButton extends React.Component {
   }
   render() {
     return (
-      <div className="row text-primary text-left" style={{ paddingLeft:'13%'}}>
+      <div className="row text-primary text-left">
         {this.getButton()}
       </div>
 
