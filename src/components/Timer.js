@@ -39,6 +39,7 @@ export class Timer extends React.Component
         this.reduceTimerA = this.reduceTimerA.bind(this);
         this.stopTimerA = this.stopTimerA.bind(this);
         this.resetTimerA = this.resetTimerA.bind(this);
+        this.pauseTimerA = this.pauseTimerA.bind(this);
 
         this.setBaseTimeB = this.setBaseTimeB.bind(this);
         this.startTimerB = this.startTimerB.bind(this);
@@ -78,6 +79,16 @@ export class Timer extends React.Component
             timerStateA: timerStates.NOT_SET,
             timerA: null,
             currentTimeA: moment.duration(this.state.baseTimeA)
+        })
+    }
+
+    pauseTimerA(){
+
+        if (this.state.timerA){
+            clearInterval(this.state.timerA);
+        }
+        this.setState({
+            timerStateA: timerStates.NOT_RUNNING
         })
     }
     reduceTimerA() {
@@ -228,9 +239,9 @@ export class Timer extends React.Component
                     <TimerDisplay currentTime={this.state.currentTimeA}/>
                     <TimerButton startTimer={this.startTimerA} 
                     timerState={this.state.timerStateA} 
-                    stopTimer={this.stopTimerA} resetTimer={this.resetTimerA}/>
+                    stopTimer={this.stopTimerA} resetTimer={this.resetTimerA} pauseTimer={this.pauseTimerA}/>
                      {
-                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE && this.state.timerStateA !== timerStates.NOT_RUNNING) 
                     &&
                     (<TimerConfig 
                         baseTime={this.state.baseTimeA}
@@ -250,7 +261,7 @@ export class Timer extends React.Component
                     timerState={this.state.timerStateB} 
                     stopTimer={this.stopTimerB} resetTimer={this.resetTimerB}/> 
                       {
-                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    (this.state.timerStateB !== timerStates.RUNNING && this.state.timerStateB !== timerStates.COMPLETE)
                     &&
                     (<TimerConfig 
                         baseTime={this.state.baseTimeB}
@@ -272,7 +283,7 @@ export class Timer extends React.Component
                     timerState={this.state.timerStateC} 
                     stopTimer={this.stopTimerC} resetTimer={this.resetTimerC}/>
                       {
-                    (this.state.timerStateA !== timerStates.RUNNING && this.state.timerStateA !== timerStates.COMPLETE)
+                    (this.state.timerStateC !== timerStates.RUNNING && this.state.timerStateC !== timerStates.COMPLETE)
                     &&
                     (<TimerConfig 
                         baseTime={this.state.baseTimeC}

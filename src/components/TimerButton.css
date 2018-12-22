@@ -7,3 +7,24 @@
     display: inline-block;
     border: none;
     }
+
+#Stop {
+    color: #fff !important;
+    text-transform: uppercase;
+    background: #60a3bc;
+    padding: 20px;
+    border-radius: 50px;
+   
+    border: none;
+    }
+
+
+#Pause {
+    color: #fff !important;
+    text-transform: uppercase;
+    background: #60a3bc;
+    padding: 20px;
+    border-radius: 50px;
+    margin-top: 25px;
+    border: none;
+    }
